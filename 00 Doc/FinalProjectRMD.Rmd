@@ -5,17 +5,28 @@ output: html_document
 
 Our group has been working with United Nations commodity trade statistics since the class transitioned from RStudio to Tableau. There are 98 sets of trade data on Enigma, so we chose to narrow our scope of inquiry to three categories: aircraft and spacecraft trade, arms and ammunition trade, and the trade of leather goods. One of the benefits of using this data is that the data sets have a uniform format, which helps with data blending and comparing the data sets. 
 
-According to Enigma, where we obtained this data, over 140 countries contribute their international trade data to the United Nations Statistics Division. The division has more than 1 billion trade records spanning over 60 years of time from 1962 to the present. The data 
+According to Enigma, where we obtained this data, over 140 countries contribute their international trade data to the United Nations Statistics Division. The division has more than 1 billion trade records spanning over 60 years of time from 1962 to the present.
 
-Each data set has the following columns:
+###Each data set has the following columns:###
 
-Country_Area -
-Year - 
-Comm_Code - 
-Commodity - 
-Flow - 
-Trade_USD - 
-Weight - 
-Quantity_Name - 
-Quantity - 
-SerialID - 
+**Country_Area** - The name of the country engaged in trade
+
+**Year** - The year in which the trade took place
+
+**Comm_Code** - The specific code for the commodity being traded
+
+**Commodity** - A description of the commodity being traded
+
+**Flow** - Indicator of whether the goods were imported or exported from the country
+
+**Trade_USD** - The amount of money that changed hands during the trade
+
+**Weight** - The weight of the goods that were traded in kilograms
+
+**Quantity** - The approximate number of items traded
+
+**Quantity_Name** - Indicator of whether the number in the quantity column is the number of items or the weight of the traded commodities
+
+**SerialID** - The unique serial number given to each trade, starting at 101 and increasing by one per trade until the final recorded trade in the data.
+
+Because there are so many records in the data we are examining, we have decided to narrow our focus even more and analyze how the United States fits into the global trade of the three previously mentioned commodities. Below we have created some visualizations to show where the US stands on the global commodities trade landscape.
