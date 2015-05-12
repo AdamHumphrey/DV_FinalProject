@@ -1,0 +1,21 @@
+---
+title: "Data Visualization Final Project"
+output: html_document
+---
+
+Our group has been working with United Nations commodity trade statistics since the class transitioned from RStudio to Tableau. There are 98 sets of trade data on Enigma, so we chose to narrow our scope of inquiry to three categories: aircraft and spacecraft trade, arms and ammunition trade, and the trade of leather goods. One of the benefits of using this data is that the data sets have a uniform format, which helps with data blending and comparing the data sets. 
+
+According to Enigma, where we obtained this data, over 140 countries contribute their international trade data to the United Nations Statistics Division. The division has more than 1 billion trade records spanning over 60 years of time from 1962 to the present. The data 
+
+Each data set has the following columns:
+
+Country_Area -
+Year - 
+Comm_Code - 
+Commodity - 
+Flow - 
+Trade_USD - 
+Weight - 
+Quantity_Name - 
+Quantity - 
+SerialID - 
