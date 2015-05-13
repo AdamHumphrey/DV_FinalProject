@@ -182,8 +182,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 <div id="data-wrangling" class="section level2">
 <h2>Data Wrangling</h2>
-<div id="here-are-the-data-wrangling-sets." class="section level3">
-<h3>Here are the data wrangling sets.</h3>
+<div id="using-data-wrangling-to-show-the-ratio-of-a-countrys-total-trades-in-a-particular-commodity-to-that-of-the-usa." class="section level3">
+<h3>Using data wrangling to show the ratio of a country’s total trades in a particular commodity to that of the USA.</h3>
+<p>The wranglings we decided to do consist of first counting the number of individual trades, not individual trade iteams, for each country in the three commodities we selected to focus on (Aircraft, ammo and article leather respectively). Then we divided that total for each country for a particular commodity, by the total that the USA had for that commodity in order to give a ratio. As we found, the USA did not have the top spot in any of the three commodities we chose to look at. And that there was often very little room between the USA and curtain other countries. Both imports and exports were counted in these numbers.</p>
 <pre class="r"><code>source(&quot;../02 Data Wrangling/FinalProjectWranglings.R&quot;, echo = TRUE)</code></pre>
 <pre><code>## 
 ## &gt; library(&quot;plyr&quot;)
@@ -372,9 +373,9 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 ## ..               ...             ...                  ...</code></pre>
 </div>
 </div>
-<div id="visualizations" class="section level2">
-<h2>Visualizations</h2>
-<p>We’ve made visualizations for each of our data wrangling sets. The visualizations are basically bar charts. The first visualization shows countries that have a ratio of their total number of aircraft trades to the total number of USA aircraft trades greater than .71. The second visualization shows countries that have a ratio of their total number of ammo trades to the total number of USA aircraft trades greater than .705. The third visualization shows countries that have a ratio of their total number of leather trades to the total number of USA leather trades greater than .9. These ratios were chosen in order to clean up the visualizations.</p>
+<div id="visualizing-these-trade-ratios." class="section level2">
+<h2>Visualizing these trade ratios.</h2>
+<p>We made visualizations for our data wrangling sets to better illustrate our findings. The visualizations are basically bar charts. The first visualization shows countries that have a ratio of their total number of aircraft trades to the total number of USA aircraft trades greater than .71. The second visualization shows countries that have a ratio of their total number of ammo trades to the total number of USA aircraft trades greater than .705. The third visualization shows countries that have a ratio of their total number of leather trades to the total number of USA leather trades greater than .9. These ratios were chosen in order to clean up the visualizations.</p>
 <pre class="r"><code>source(&quot;../03 Visualizations/FinalProjectVisualizations.R&quot;, echo = TRUE)</code></pre>
 <pre><code>## 
 ## &gt; require(&quot;gplots&quot;)</code></pre>
