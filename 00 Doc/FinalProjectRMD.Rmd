@@ -42,3 +42,11 @@ source("../01 Data/FinalProjectData.R", echo = TRUE)
 ```{r}
 source("../02 Data Wrangling/FinalProjectWranglings.R", echo = TRUE)
 ```
+
+##Visualizations
+
+We've made visualizations for each of our data wrangling sets. The visualizations are basically bar charts. The first visualization shows countries that have a ratio of their total number of aircraft trades to the total number of USA aircraft trades greater than .71. The second visualization shows countries that have a ratio of their total number of ammo trades to the total number of USA aircraft trades greater than .705. The third visualization shows countries that have a ratio of their total number of leather trades to the total number of USA leather trades greater than .9. These ratios were chosen in order to clean up the visualizations. 
+
+```{r}
+source("../03 Visualizations/FinalProjectVisualizations.R", echo = TRUE)
+```

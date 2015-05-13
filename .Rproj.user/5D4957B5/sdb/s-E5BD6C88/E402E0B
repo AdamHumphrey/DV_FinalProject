@@ -1,0 +1,16 @@
+{
+    "contents" : "require(\"gplots\")\nrequire(\"ggplot2\")\nlibrary(\"plyr\")\nlibrary(\"dplyr\")\nlibrary(\"tidyr\")\n\ntradeplot1 <- PercentOfUSA_AircraftTrades %>% select(AIRCRAFT_COUNTRY_AREA,PERCENT_OF_USA_TRADE) %>% filter(.,PERCENT_OF_USA_TRADE>.71)\n\ntradeplot1 <- ggplot(tradeplot1, aes(x = AIRCRAFT_COUNTRY_AREA, y = PERCENT_OF_USA_TRADE)) + geom_area(colour=\"dodgerblue2\") + labs(y = \"Percentage of Total Number of Leather Trades\", x = \"Countries\") + ggtitle(\"Ratio of Aircraft Trades\") + theme(plot.title=element_text(size=20, face=\"bold\", vjust=2)) \n\ntradeplot1\n\n\n\ntradeplot2 <- PercentOfUSA_AmmoTrades %>% select(AMMO_COUNTRY_AREA,PERCENT_OF_USA_TRADE) %>% filter(.,PERCENT_OF_USA_TRADE>.705)\n\ntradeplot2 <- ggplot(tradeplot2, aes(x = AMMO_COUNTRY_AREA, y = PERCENT_OF_USA_TRADE)) + geom_area(colour=\"red\") + labs(y = \"Percentage of Total Number of Leather Trades\", x = \"Countries\") + ggtitle(\"Ratio of Ammo Trades\") + theme(plot.title=element_text(size=20, face=\"bold\", vjust=2))\n\ntradeplot2\n\n\n\ntradeplot3 <- PercentOfUSA_AlTrades %>% select(AL_COUNTRY_AREA,PERCENT_OF_USA_TRADE) %>% filter(.,PERCENT_OF_USA_TRADE>.9)\n\n\ntradeplot3 <- ggplot(tradeplot3, aes(x = AL_COUNTRY_AREA, y = PERCENT_OF_USA_TRADE)) + geom_area(colour=\"chocolate\") + labs(y = \"Percentage of Total Number of Leather Trades\", x = \"Countries\") + ggtitle(\"Ratio of Article Leather Trades\") + theme(plot.title=element_text(size=20, face=\"bold\", vjust=2))\n\ntradeplot3\n\n",
+    "created" : 1431479663679.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "300467240",
+    "id" : "E402E0B",
+    "lastKnownWriteTime" : 1431484088,
+    "path" : "C:/Users/Travis Cox/DataVisualization/Final Project/03 Visualizations/FinalProjectVisualizations.R",
+    "project_path" : "03 Visualizations/FinalProjectVisualizations.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
