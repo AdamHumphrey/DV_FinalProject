@@ -1,0 +1,16 @@
+{
+    "contents" : "---\ntitle: \"Project 3 RMD File\"\noutput: html_document\n---\n\nThis is the R Markdown file for project 5.\n\nGroup members: Travis Cox, Lola Shonaike, and Adam Humphrey\n\nData source: https://app.enigma.io/search/source/org.un.comtrade\n\n##Summary of data\n\nFor this assignment, we had to produce the following Crosstabs in R and Tableau of rank(), last value/ maxvalue and difference, nth value, and cume_dist.\nFor the data, we chose to use Aircraft, Article Leather, and Ammunation data. We wanted to observe different patterns with trade and commerce. \n\n##1 RANK()\nFor rank, we chose to see which Aircraft comm codes(type of aircraft) had an effect on Aircraft Quantity. We first sorted it by Aircraft quantity, then calculated the sum of the number of each type of aircraft. We ranked this to easily see which types of aircrafts were the best, without the hassle of going through the sum. \n\n\n##2 MAX VALUE AND DIFFERENCE\n\n For Max Value and Difference, we chose to view Max Value and differences for all import/export trades for each country. It was interesting to view how various countries would have small differences and some large. Also, it seemed that countries had a small export difference and a large import difference.\n\n##3 Nth Value \n\nFor nth value, we chose to look at Ammo Quantity vs AmmoCountry Area, as you can see below, the average number is the same. \n\n##4 Cume dist\n\n For Cume dist, we chose to look at the Ammo flow of the different types of ammo, then take the percentage of the total running sum of ammo trade usd along ammo flow. By doing this, one could analyze correlations between the type of ammo and how it affects various types of ammo flow such as export, import, re-export, etc.  Across all types of ammo, reimport was 100% and export seemed to consistently low. From this one can conclude, it is more popular to import weapons than to export weapons. \n###Here is a illustration of the data that we are using.\n   For ease of access and understanding, all the steps in R to reproduce the visualization can be viewed below. \n \n```{r}\nsource(\"../01 SQL Crosstabs/CrosstabData.R\", echo = TRUE)\n```\n\n\n",
+    "created" : 1431488826494.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3454225233",
+    "id" : "839AA80E",
+    "lastKnownWriteTime" : 1429153937,
+    "path" : "C:/Users/Travis Cox/DataVisualization/Project5/00 Doc/Project5Rmd.Rmd",
+    "project_path" : null,
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_markdown"
+}
