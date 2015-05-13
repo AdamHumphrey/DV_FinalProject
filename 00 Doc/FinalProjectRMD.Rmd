@@ -30,23 +30,3 @@ According to Enigma, where we obtained this data, over 140 countries contribute 
 **SerialID** - The unique serial number given to each trade, starting at 101 and increasing by one per trade until the final recorded trade in the data.
 
 Because there are so many records in the data we are examining, we have decided to narrow our focus even more and analyze how the United States fits into the global trade of the three previously mentioned commodities. Below we have created some visualizations to show where the US stands on the global commodities trade landscape.
-
-###Here is a summary of the data that we are using.
-```{r}
-source("../01 Data/FinalProjectData.R", echo = TRUE)
-```
-
-##Data Wrangling
-
-###Here are the data wrangling sets.
-```{r}
-source("../02 Data Wrangling/FinalProjectWranglings.R", echo = TRUE)
-```
-
-##Visualizations
-
-We've made visualizations for each of our data wrangling sets. The visualizations are basically bar charts. The first visualization shows countries that have a ratio of their total number of aircraft trades to the total number of USA aircraft trades greater than .71. The second visualization shows countries that have a ratio of their total number of ammo trades to the total number of USA aircraft trades greater than .705. The third visualization shows countries that have a ratio of their total number of leather trades to the total number of USA leather trades greater than .9. These ratios were chosen in order to clean up the visualizations. 
-
-```{r}
-source("../03 Visualizations/FinalProjectVisualizations.R", echo = TRUE)
-```
