@@ -90,4 +90,8 @@ However, the relative gap in total capital generated through imports and exports
 ![My Figure4](./LeatherQuantity.png)
 The United States doesn’t even come close to being the top leather goods trading nation in terms of total quantity. China (with Hong Kong included in their numbers) takes the top spot with over 75 billion items being recorded in the UN trade statistics.
 
+![My Figure4](./realTab.png)
+In this visualization, we looked at which leather goods yielded the highest total weight per trade. As you can see, China and the USA were close in total weight. Yet, in general, China had the most overall for the various types of commodities in the trade market between the countries analyzed. 
 
+![My Figure4](./TableauFinal.png)
+Despite the USA joining the Aircraft Trade Market, later than its competitors, it was fairly higher for export and trade than Aircraft Trade “veterans”.  Also, USA stayed consistent for import and export while other countries were consistent for import but inconsistent for export trade.
