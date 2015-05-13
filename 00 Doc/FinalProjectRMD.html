@@ -69,6 +69,308 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p><strong>Quantity</strong> - The approximate number of items traded</p>
 <p><strong>Quantity_Name</strong> - Indicator of whether the number in the quantity column is the number of items or the weight of the traded commodities</p>
 <p><strong>SerialID</strong> - The unique serial number given to each trade, starting at 101 and increasing by one per trade until the final recorded trade in the data.</p>
+<p>Because there are so many records in the data we are examining, we have decided to narrow our focus even more and analyze how the United States fits into the global trade of the three previously mentioned commodities. Below we have created some visualizations to show where the US stands on the global commodities trade landscape.</p>
+</div>
+<div id="here-is-a-summary-of-the-data-that-we-are-using." class="section level3">
+<h3>Here is a summary of the data that we are using.</h3>
+<pre class="r"><code>source(&quot;../01 Data/FinalProjectData.R&quot;, echo = TRUE)</code></pre>
+<pre><code>## 
+## &gt; require(&quot;jsonlite&quot;)</code></pre>
+<pre><code>## Loading required package: jsonlite
+## 
+## Attaching package: 'jsonlite'
+## 
+## The following object is masked from 'package:utils':
+## 
+##     View</code></pre>
+<pre><code>## 
+## &gt; require(&quot;RCurl&quot;)</code></pre>
+<pre><code>## Loading required package: RCurl
+## Loading required package: bitops</code></pre>
+<pre><code>## 
+## &gt; leather &lt;- data.frame(fromJSON(getURL(URLencode(&quot;129.152.144.84:5001/rest/native/?query=\&quot;select * from articleleather_revised\&quot;&quot;), 
+## +     httpheade .... [TRUNCATED] 
+## 
+## &gt; head(leather)
+##   AL_COUNTRY_AREA AL_YEAR AL_COMM_CODE
+## 1           Niger    2008       420500
+## 2           Niger    2008       420500
+## 3         Nigeria    2008       420100
+## 4         Nigeria    2008       420211
+## 5         Nigeria    2008       420211
+## 6         Nigeria    2008       420212
+##                                            AL_COMMODITY AL_FLOW
+## 1      Articles of leather and composition leather, nes  Import
+## 2      Articles of leather and composition leather, nes  Export
+## 3                 Saddlery and harness, of any material  Export
+## 4         Trunks, suit-cases/etc, outer surface leather  Import
+## 5         Trunks, suit-cases/etc, outer surface leather  Export
+## 6 Trunks, suit-cases, etc, outer surface plastic/textil  Import
+##   AL_TRADE_USD AL_WEIGHT    AL_QUANTITY_NAME AL_QUANTITY AL_SERIAL_ID
+## 1         9335       132 Weight in kilograms         132        19799
+## 2         1267        44 Weight in kilograms          44        19800
+## 3       346481     14110 Weight in kilograms       14110        19801
+## 4       865486     28006         No Quantity        null        19802
+## 5         7088       111         No Quantity        null        19803
+## 6     15092499   1668209         No Quantity        null        19804
+## 
+## &gt; aircraft &lt;- data.frame(fromJSON(getURL(URLencode(&quot;129.152.144.84:5001/rest/native/?query=\&quot;select * from aircraft_revised\&quot;&quot;), 
+## +     httpheader = c .... [TRUNCATED] 
+## 
+## &gt; head(aircraft)
+##   AIRCRAFT_COUNTRY_AREA AIRCRAFT_YEAR AIRCRAFT_COMM_CODE
+## 1               Albania          2000             880400
+## 2               Albania          2000             880510
+## 3               Albania          1999             880110
+## 4               Albania          1999             880211
+## 5               Albania          1999             880310
+## 6               Albania          1999             880330
+##                                 AIRCRAFT_COMMODITY AIRCRAFT_FLOW
+## 1        Parachutes, parts and accessories thereof        Import
+## 2 Aircraft launching and deck-arrestor gear, parts        Import
+## 3                            Gliders, hang gliders        Import
+## 4      Helicopters of an unladen weight &lt; 2,000 kg        Export
+## 5    Aircraft propellers, rotors and parts thereof        Import
+## 6                               Aircraft parts nes        Import
+##   AIRCRAFT_TRADE_USD AIRCRAFT_WEIGHT AIRFCRAFT_QUANTITY
+## 1                749              15                 15
+## 2               4487             109                109
+## 3              27847               0                 81
+## 4             498181               0                 10
+## 5             139206           10304              10304
+## 6             526741            4078               4078
+##   AIRCRAFT_QUANTITY_NAME SERIAL_ID
+## 1    Weight in kilograms       101
+## 2    Weight in kilograms       102
+## 3        Number of items       103
+## 4        Number of items       104
+## 5    Weight in kilograms       105
+## 6    Weight in kilograms       106
+## 
+## &gt; ammo &lt;- data.frame(fromJSON(getURL(URLencode(&quot;129.152.144.84:5001/rest/native/?query=\&quot;select * from ammo_revised\&quot;&quot;), 
+## +     httpheader = c(DB = &quot;j ...&quot; ... [TRUNCATED] 
+## 
+## &gt; head(ammo)
+##   AMMO_COUNTRY_AREA AMMO_YEAR AMMO_COMM_CODE
+## 1           Albania      2001         930390
+## 2           Albania      2001         930390
+## 3           Albania      2001         930521
+## 4           Albania      2001         930529
+## 5           Albania      2001         930529
+## 6           Albania      2001         930590
+##                                     AMMO_COMMODITY AMMO_FLOW
+## 1         Signal pistols, etc, humane killers, etc    Import
+## 2         Signal pistols, etc, humane killers, etc    Export
+## 3                                  Shotgun barrels    Import
+## 4 Parts and accessories of shotguns or rifles, nes    Import
+## 5 Parts and accessories of shotguns or rifles, nes    Export
+## 6        Parts and accessories nes of weapons, nes    Import
+##   AMMO_TRADE_USD AMMO_WEIGHT  AMMO_QUANTITY_NAME AMMO_QUANTITY
+## 1           3127          70     Number of items          2925
+## 2           3197          62     Number of items            22
+## 3             20        null         No Quantity          null
+## 4            123           2 Weight in kilograms             2
+## 5           1194         120 Weight in kilograms           120
+## 6           3715      614303 Weight in kilograms        614303
+##   AMMO_SERIAL_ID
+## 1            142
+## 2            143
+## 3            144
+## 4            145
+## 5            146
+## 6            147</code></pre>
+</div>
+<div id="data-wrangling" class="section level2">
+<h2>Data Wrangling</h2>
+<div id="here-are-the-data-wrangling-sets." class="section level3">
+<h3>Here are the data wrangling sets.</h3>
+<pre class="r"><code>source(&quot;../02 Data Wrangling/FinalProjectWranglings.R&quot;, echo = TRUE)</code></pre>
+<pre><code>## 
+## &gt; library(&quot;plyr&quot;)
+## 
+## &gt; library(&quot;dplyr&quot;)</code></pre>
+<pre><code>## 
+## Attaching package: 'dplyr'
+## 
+## The following objects are masked from 'package:plyr':
+## 
+##     arrange, count, desc, failwith, id, mutate, rename, summarise,
+##     summarize
+## 
+## The following object is masked from 'package:stats':
+## 
+##     filter
+## 
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre><code>## 
+## &gt; library(&quot;tidyr&quot;)
+## 
+## &gt; S1 &lt;- aircraft %&gt;% group_by(AIRCRAFT_COUNTRY_AREA) %&gt;% 
+## +     summarise(NUMBER_DATAPOINTS = n())
+## 
+## &gt; S2 &lt;- ammo %&gt;% group_by(AMMO_COUNTRY_AREA) %&gt;% summarise(NUMBER_DATAPOINTS = n())
+## 
+## &gt; S3 &lt;- leather %&gt;% group_by(AL_COUNTRY_AREA) %&gt;% summarise(NUMBER_DATAPOINTS = n())
+## 
+## &gt; G1 &lt;- full_join(S1, S2, by = &quot;NUMBER_DATAPOINTS&quot;) %&gt;% 
+## +     full_join(., S3, by = &quot;NUMBER_DATAPOINTS&quot;) %&gt;% arrange(NUMBER_DATAPOINTS) %&gt;% 
+## +     se .... [TRUNCATED] 
+## 
+## &gt; aircrafttrades &lt;- G1 %&gt;% select(NUMBER_DATAPOINTS, 
+## +     AIRCRAFT_COUNTRY_AREA) %&gt;% filter(!is.na(AIRCRAFT_COUNTRY_AREA))
+## 
+## &gt; tbl_df(aircrafttrades)
+## Source: local data frame [215 x 2]
+## 
+##    NUMBER_DATAPOINTS  AIRCRAFT_COUNTRY_AREA
+## 1                  1          Guinea-Bissau
+## 2                  1 Occ. Palestinian Terr.
+## 3                  2                  Haiti
+## 4                  2             Montserrat
+## 5                  2           Solomon Isds
+## 6                  5                Bermuda
+## 7                  5                   Chad
+## 8                  5           Sierra Leone
+## 9                  6              Cook Isds
+## 10                 6              Cook Isds
+## ..               ...                    ...
+## 
+## &gt; ammotrades &lt;- G1 %&gt;% select(NUMBER_DATAPOINTS, AMMO_COUNTRY_AREA) %&gt;% 
+## +     filter(!is.na(AMMO_COUNTRY_AREA))
+## 
+## &gt; tbl_df(ammotrades)
+## Source: local data frame [207 x 2]
+## 
+##    NUMBER_DATAPOINTS      AMMO_COUNTRY_AREA
+## 1                  2           Sierra Leone
+## 2                  2           Sierra Leone
+## 3                  2           Sierra Leone
+## 4                  3                Myanmar
+## 5                  3 Occ. Palestinian Terr.
+## 6                  4               Kiribati
+## 7                  6               Djibouti
+## 8                  6                Eritrea
+## 9                  6               Djibouti
+## 10                 6                Eritrea
+## ..               ...                    ...
+## 
+## &gt; altrades &lt;- G1 %&gt;% select(NUMBER_DATAPOINTS, AL_COUNTRY_AREA) %&gt;% 
+## +     filter(!is.na(AL_COUNTRY_AREA))
+## 
+## &gt; tbl_df(altrades)
+## Source: local data frame [212 x 2]
+## 
+##    NUMBER_DATAPOINTS AL_COUNTRY_AREA
+## 1                  8    Solomon Isds
+## 2                  9     Afghanistan
+## 3                  9     Afghanistan
+## 4                 13        Djibouti
+## 5                 13        Djibouti
+## 6                 13        Djibouti
+## 7                 17            Chad
+## 8                 19   Guinea-Bissau
+## 9                 20       Cook Isds
+## 10                22         Bermuda
+## ..               ...             ...
+## 
+## &gt; USA_AIRCRAFT_TRADES &lt;- aircraft %&gt;% select(AIRCRAFT_COUNTRY_AREA) %&gt;% 
+## +     filter(AIRCRAFT_COUNTRY_AREA == &quot;USA&quot;) %&gt;% group_by(AIRCRAFT_COUNTRY_AR .... [TRUNCATED] 
+## 
+## &gt; tbl_df(USA_AIRCRAFT_TRADES)
+## Source: local data frame [1 x 2]
+## 
+##   AIRCRAFT_COUNTRY_AREA NUMBER_DATAPOINTS
+## 1                   USA               912
+## 
+## &gt; USA_AMMO_TRADES &lt;- ammo %&gt;% select(AMMO_COUNTRY_AREA) %&gt;% 
+## +     filter(AMMO_COUNTRY_AREA == &quot;USA&quot;) %&gt;% group_by(AMMO_COUNTRY_AREA) %&gt;% 
+## +     summa .... [TRUNCATED] 
+## 
+## &gt; tbl_df(USA_AMMO_TRADES)
+## Source: local data frame [1 x 2]
+## 
+##   AMMO_COUNTRY_AREA NUMBER_DATAPOINTS
+## 1               USA              1054
+## 
+## &gt; USA_LEATHER_TRADES &lt;- leather %&gt;% select(AL_COUNTRY_AREA) %&gt;% 
+## +     filter(AL_COUNTRY_AREA == &quot;USA&quot;) %&gt;% group_by(AL_COUNTRY_AREA) %&gt;% 
+## +     summa .... [TRUNCATED] 
+## 
+## &gt; tbl_df(USA_LEATHER_TRADES)
+## Source: local data frame [1 x 2]
+## 
+##   AL_COUNTRY_AREA NUMBER_DATAPOINTS
+## 1             USA              1354
+## 
+## &gt; Percent1 &lt;- aircrafttrades[1][1]/max(USA_AIRCRAFT_TRADES[2])
+## 
+## &gt; names(Percent1)[1] &lt;- &quot;PERCENT_OF_USA_TRADE&quot;
+## 
+## &gt; PercentOfUSA_AircraftTrades &lt;- bind_cols(aircrafttrades, 
+## +     Percent1)
+## 
+## &gt; tbl_df(PercentOfUSA_AircraftTrades)
+## Source: local data frame [215 x 3]
+## 
+##    NUMBER_DATAPOINTS  AIRCRAFT_COUNTRY_AREA PERCENT_OF_USA_TRADE
+## 1                  1          Guinea-Bissau          0.001096491
+## 2                  1 Occ. Palestinian Terr.          0.001096491
+## 3                  2                  Haiti          0.002192982
+## 4                  2             Montserrat          0.002192982
+## 5                  2           Solomon Isds          0.002192982
+## 6                  5                Bermuda          0.005482456
+## 7                  5                   Chad          0.005482456
+## 8                  5           Sierra Leone          0.005482456
+## 9                  6              Cook Isds          0.006578947
+## 10                 6              Cook Isds          0.006578947
+## ..               ...                    ...                  ...
+## 
+## &gt; Percent2 &lt;- ammotrades[1][1]/max(USA_AMMO_TRADES[2])
+## 
+## &gt; names(Percent2)[1] &lt;- &quot;PERCENT_OF_USA_TRADE&quot;
+## 
+## &gt; PercentOfUSA_AmmoTrades &lt;- bind_cols(ammotrades, Percent2)
+## 
+## &gt; tbl_df(PercentOfUSA_AmmoTrades)
+## Source: local data frame [207 x 3]
+## 
+##    NUMBER_DATAPOINTS      AMMO_COUNTRY_AREA PERCENT_OF_USA_TRADE
+## 1                  2           Sierra Leone          0.001897533
+## 2                  2           Sierra Leone          0.001897533
+## 3                  2           Sierra Leone          0.001897533
+## 4                  3                Myanmar          0.002846300
+## 5                  3 Occ. Palestinian Terr.          0.002846300
+## 6                  4               Kiribati          0.003795066
+## 7                  6               Djibouti          0.005692600
+## 8                  6                Eritrea          0.005692600
+## 9                  6               Djibouti          0.005692600
+## 10                 6                Eritrea          0.005692600
+## ..               ...                    ...                  ...
+## 
+## &gt; Percent3 &lt;- altrades[1][1]/max(USA_LEATHER_TRADES[2])
+## 
+## &gt; names(Percent3)[1] &lt;- &quot;PERCENT_OF_USA_TRADE&quot;
+## 
+## &gt; PercentOfUSA_AlTrades &lt;- bind_cols(altrades, Percent3)
+## 
+## &gt; tbl_df(PercentOfUSA_AlTrades)
+## Source: local data frame [212 x 3]
+## 
+##    NUMBER_DATAPOINTS AL_COUNTRY_AREA PERCENT_OF_USA_TRADE
+## 1                  8    Solomon Isds          0.005908419
+## 2                  9     Afghanistan          0.006646972
+## 3                  9     Afghanistan          0.006646972
+## 4                 13        Djibouti          0.009601182
+## 5                 13        Djibouti          0.009601182
+## 6                 13        Djibouti          0.009601182
+## 7                 17            Chad          0.012555391
+## 8                 19   Guinea-Bissau          0.014032496
+## 9                 20       Cook Isds          0.014771049
+## 10                22         Bermuda          0.016248154
+## ..               ...             ...                  ...</code></pre>
+</div>
 </div>
 
 

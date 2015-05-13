@@ -1,0 +1,16 @@
+{
+    "contents" : "require(\"jsonlite\")\nrequire(\"RCurl\")\n\nleather <- data.frame(fromJSON(getURL(URLencode('129.152.144.84:5001/rest/native/?query=\"select * from articleleather_revised\"'),httpheader=c(DB='jdbc:oracle:thin:@129.152.144.84:1521:ORCL', USER='C##cs329e_das3734', PASS='orcl_das3734', MODE='native_mode', MODEL='model', returnDimensions = 'False', returnFor = 'JSON'), verbose = TRUE)))\n\nhead(leather)\n\naircraft <- data.frame(fromJSON(getURL(URLencode('129.152.144.84:5001/rest/native/?query=\"select * from aircraft_revised\"'),httpheader=c(DB='jdbc:oracle:thin:@129.152.144.84:1521:ORCL', USER='C##cs329e_das3734', PASS='orcl_das3734', MODE='native_mode', MODEL='model', returnDimensions = 'False', returnFor = 'JSON'), verbose = TRUE)))\n\nhead(aircraft)\n\nammo <- data.frame(fromJSON(getURL(URLencode('129.152.144.84:5001/rest/native/?query=\"select * from ammo_revised\"'),httpheader=c(DB='jdbc:oracle:thin:@129.152.144.84:1521:ORCL', USER='C##cs329e_das3734', PASS='orcl_das3734', MODE='native_mode', MODEL='model', returnDimensions = 'False', returnFor = 'JSON'), verbose = TRUE)))\n\nhead(ammo)\n",
+    "created" : 1431476670142.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1428449854",
+    "id" : "3DF1D484",
+    "lastKnownWriteTime" : 1425679100,
+    "path" : "C:/Users/Travis Cox/DataVisualization/Final Project/01 Data/FinalProjectData.R",
+    "project_path" : "01 Data/FinalProjectData.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
